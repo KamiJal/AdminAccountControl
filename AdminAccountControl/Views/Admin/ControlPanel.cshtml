@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Панель администратора";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="renderBody">
+    <section>
+        <br />
+        <br />
+        <h2>Панель администратора <span class="h3 text-muted">сайта</span></h2>
+        <br />
+        @Html.ActionLink("Настройка системы", "Settings", "Admin", null, new { @class = "btn btn-default" })
+    </section>
+</section>
+
+
+@section scripts
+{
+    <script src="~/Scripts/indexLogic.js"></script>
+}
+

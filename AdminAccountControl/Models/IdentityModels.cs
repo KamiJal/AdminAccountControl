@@ -20,6 +20,9 @@ namespace AdminAccountControl.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Appliance> Appliances { get; set; }
+        public DbSet<Setting> Settings { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

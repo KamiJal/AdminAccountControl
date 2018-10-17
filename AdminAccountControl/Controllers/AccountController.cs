@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AdminAccountControl.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace AdminAccountControl.Controllers
 {
@@ -155,6 +156,17 @@ namespace AdminAccountControl.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    if (UserManager.Users.Count() == 1)
+                    {
+                        var roleManager =
+                            new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+
+                        await roleManager.CreateAsync(new IdentityRole("administrator"));
+                        await UserManager.AddToRoleAsync(user.Id, "administrator");
+                        await InitializeSettings(user.Email);
+                    }
+
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -171,6 +183,28 @@ namespace AdminAccountControl.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
+        private async Task InitializeSettings(string adminEmail)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var setting = new Setting
+                {
+                    AdminEmail = adminEmail,
+                    RobotEmail = "robot@mail.ru",
+                    MailServer = "localhost",
+                    MailAddress = "http://www.test.com",
+                    Description = true,
+                    IsInStock = true,
+                    Attachment = true
+                };
+
+                context.Settings.Add(setting);
+                await context.SaveChangesAsync();
+            }
+        }
+
 
         //
         // GET: /Account/ConfirmEmail

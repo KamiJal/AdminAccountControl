@@ -1,0 +1,21 @@
+﻿@model IEnumerable<AdminAccountControl.Models.Appliance>
+
+<table id="table" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Created Date</th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody style="cursor: pointer">
+        @foreach (var item in Model)
+        {
+            <tr name="jsTableRow" class="jsTableRow" id="@item.Id">
+                <td>@item.CreatedDate.Date</td>
+                <td>@item.Title</td>
+                <td>@item.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>

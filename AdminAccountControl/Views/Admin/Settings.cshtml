@@ -1,0 +1,107 @@
+﻿@model AdminAccountControl.Models.Setting
+
+@{
+    ViewBag.Title = "Настройки";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="renderBody">
+    <section class="page-header">
+        <h2>Настройки <span class="h3 text-muted">системы</span></h2>
+    </section>
+
+    @using (Html.BeginForm("SaveSettings", "Admin", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AdminEmail, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.AdminEmail, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdminEmail, "", new { @class = "text-danger" })
+                    <br />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RobotEmail, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.RobotEmail, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RobotEmail, "", new { @class = "text-danger" })
+                    <br />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MailServer, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.MailServer, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MailServer, "", new { @class = "text-danger" })
+                    <br />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MailAddress, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.MailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MailAddress, "", new { @class = "text-danger" })
+                    <br />
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <h3 class="text-muted">Доступные колонки:</h3>
+            </div>
+
+            <div class="col-md-12">
+                <input type="text" class="form-control" value="CreatedDate" disabled />
+                <br />
+            </div>
+
+            <div class="col-md-12">
+                <input type="text" class="form-control" value="Name" disabled />
+                <br />
+            </div>
+
+            <div class="col-md-12">
+                <input type="text" class="form-control" value="Price" disabled />
+                <br />
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-md-12">
+                    @Html.CheckBoxFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label text-muted" })
+                    <br />
+                </div>
+
+                <div class="col-md-12">
+                    @Html.CheckBoxFor(model => model.IsInStock, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.LabelFor(model => model.IsInStock, htmlAttributes: new { @class = "control-label text-muted" })
+                    <br />
+                </div>
+
+                <div class="col-md-12">
+                    @Html.CheckBoxFor(model => model.Attachment, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.LabelFor(model => model.Attachment, htmlAttributes: new { @class = "control-label text-muted" })
+                    <br />
+                    <br />
+                </div>
+
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Сохранить" />
+                </div>
+            </div>
+
+        </div>
+    }
+
+</section>
+
